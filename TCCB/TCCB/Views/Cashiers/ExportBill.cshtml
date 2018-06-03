@@ -1,0 +1,74 @@
+﻿
+
+@{
+    ViewBag.Title = "Xuất hóa đơn";
+    Layout = "~/Views/Shared/_LayoutCashier.cshtml";
+
+    var ManagementUnit = (TCCB.Models.DAO.ManagementUnit)Session[CommonConstants.MANAGEMENTUNIT];
+    var RegistedInterview = (TCCB.Models.DAO.RegistrationInterview)Session[CommonConstants.REGISTED_INTERVIEW];
+    var RegistrationPrice = (TCCB.Models.DAO.RegistrationPrice)Session[CommonConstants.REGISTRATION_PRICE];
+}
+
+
+<div class="col-sm-8 col-sm-offset-2">
+    <div>
+        <div class="checkIDBox">
+            <h4 class="text-center text-success">Thêm ứng viên <b>@RegistedInterview.CandidateLastName @RegistedInterview.CandidateFirstName</b> thành công với mã hồ sơ là <b>@RegistedInterview.Id</b></h4><p class="text-center">
+    <button type="button" class="btn btn-primary" onclick="printBill();">
+        <span class="glyphicon glyphicon-print"></span> IN HÓA ĐƠN
+    </button>
+    <div class="checkIDBox text-center">
+        <a href="/xuathoadon"  role="button" class="btn btn-danger">
+                <span class="glyphicon glyphicon-arrow-left"></span> QUAY LẠI
+        </a>
+    </div>
+</p><div id="printContent">
+                <div class="container bill-print">
+                    <div class="row">
+                        <div class="col-sm-8 col-xs-8">
+                            <p>@ManagementUnit.FullName</p>
+                            <p><i>@ManagementUnit.Address</i></p>
+                        </div><div class="col-sm-4 col-xs-4">
+                            <h4>Mã hồ sơ: <b>@RegistedInterview.Id</b></h4>
+                        </div>
+                    </div><h3 class="text-center bill"><b>BIÊN LAI THU TIỀN</b></h3>
+                    <p class="text-center"><i>Ngày @DateTime.Now.Day tháng @DateTime.Now.Month năm @DateTime.Now.Year</i></p>
+                    <div class="bill col-sm-8 col-sm-offset-2 col-xs-8 col-xs-offset-2">
+                        <p>Họ, tên người nộp: <b>@RegistedInterview.CandidateLastName @RegistedInterview.CandidateFirstName</b></p><p>Số CMND: <b>@RegistedInterview.IdentifyCard</b></p>
+                        <p>Nội dung nộp: <b>Lệ phí dự tuyển viên chức 2018</b></p><p>
+                            Số tiền thu: <b>
+                                @RegistrationPrice.Value
+                            </b> (Viết bằng chữ): @RegistrationPrice.ValueByWord<b></b>
+                        </p>
+                    </div><div class="row">
+                        <div class="bill col-sm-6 col-xs-6">
+                            <p class="text-center"><b>Người nộp tiền</b></p>
+                            <p class="text-center"><i>(Ký và ghi rõ họ tên)</i></p>
+                        </div>
+                        <div class="bill col-sm-6 col-xs-6">
+                            <p class="text-center">
+                                <b>Người thu tiền</b>
+                            </p><p class="text-center"><i>(Ký và ghi rõ họ tên)</i></p>
+                        </div>
+                    </div><div class="warning-box">
+                        <p><b>Lưu ý: </b></p><ul>
+                            <li>Ứng viên vui lòng truy cập vào <b>http://tuyendung/hosoungtuyen</b> để cập nhập hồ sơ ứng tuyển</li>
+                            <li>Ứng viên vui lòng đến <b>@RegistrationPrice.Address</b> vào ngày <b>@RegistrationPrice.DateComeTo.Value.Day/@RegistrationPrice.DateComeTo.Value.Month/@RegistrationPrice.DateComeTo.Value.Year</b> để rà xoát hồ sơ (<i>Mục đích là để đối chiếu hồ sơ với bản khai. Vui lòng tới đúng giờ</i>)</li>
+                            <li>Khi đi ứng viên vui lòng in hố sơ ứng tuyển thành <b>2 bản</b>, sau khi đã hoàn tất cập nhật hồ sơ ứng tuyển</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+       
+    </div>
+</div>
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
+<script src="~/Scripts/printThis.js"></script>
+<script>
+    function printBill() {
+        $("#printContent").printThis();
+    }
+</script>
+

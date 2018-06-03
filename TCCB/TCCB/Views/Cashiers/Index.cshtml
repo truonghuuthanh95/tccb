@@ -1,0 +1,117 @@
+﻿@model TCCB.Models.DAO.RegistrationPrice
+
+@{
+    ViewBag.Title = "Xuất hóa đơn";
+    Layout = "~/Views/Shared/_LayoutCashier.cshtml";
+
+}
+<div class="col-sm-8 col-sm-offset-2">
+    <div>
+        <div class="text-center checkIDBox">
+            <h3 class="text-center text-info">XUẤT HÓA ĐƠN ĐĂNG KÍ</h3>
+            <form class="form-inline">
+                <p class="text-warning">Vui lòng nhập số chứng minh nhân dân sau đó nhấn xác nhận để hệ thống kiểm tra</p>
+                <p class="text-danger" id="errorRegistration"></p>
+                <div class="form-group" id="errorInputIdentifyCard">
+                    <label for="identifyCard" class="control-label">Số CMND</label>
+                    <input placeholder="CMND" type="number" id="identifyCard" class="form-control" value="">
+                </div>
+                <button type="button" class="btn btn-success" onclick="checkValidToRegistration();" id="submitIndentifyCard">XÁC NHẬN</button>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="exportBillBox col-sm-6 col-sm-offset-3" id="billInfomation" style="display: none;">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <form id="createCandidate" action="/taomoiungvien" method="get">
+
+                <div class="form-group has-feedback" id="errorCandidateName">
+                    <label for="formBasicText" class="control-label">Họ tên người đăng kí</label>
+
+                    <input placeholder="Họ tên người đăng kí" type="text" id="candidateName" class="form-control" name="candidateName">
+
+                    <span class="help-block" id="errorCandidateNameValue"></span>
+                </div>
+                <input type="hidden" class="form-control" id="identifyCardSend" name="identifyCard">
+                <div class="form-group">
+                    <label class="control-label">Lệ phí</label>
+                    <p class="form-control-static">
+                        <b>
+                            <i>@Model.Value VND </i>
+                        </b>
+                    </p>
+                </div>
+                <div class="panel-footer">
+                    <div class="row">
+                        <div class="col-sm-6 col-xs-6">
+                            <button type="button" class="btn btn-danger" onclick="cancelSummitCreateCandidate();">HỦY</button>
+                        </div>
+                        <div class="col-sm-6 col-xs-6">
+                            <button type="button" class="btn btn-primary btn-block" onclick="submitCreateCandidate();">
+                                <span class="glyphicon glyphicon-plus"></span> THÊM ỨNG VIÊN
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
+<script>
+    function checkValidToRegistration() {
+        if ($('#identifyCard').val() == '') {
+            $('#errorInputIdentifyCard').addClass('has-error');
+            $('#errorRegistration').text('Vui lòng nhập số CMND');
+        }
+        else if ($('#identifyCard').val() !== '') {
+            var identifyCard = $('#identifyCard').val();
+
+            if (identifyCard.length < 9 || identifyCard.length > 12) {
+                $('#errorRegistration').text('Độ dài CMND không hợp lệ');
+            }
+            else {
+
+                $.get("/kiemtracmnd?identifyCard=" + $('#identifyCard').val(), function (data, status) {
+                    if (data.Status == 200) {
+                        $('#errorInputIdentifyCard').removeClass('has-error');
+                        $('#errorRegistration').text('');
+                        $('#identifyCard').prop('disabled', true);
+                        $('#submitIndentifyCard').addClass('disabled');
+                        $('#errorInputIdentifyCard').removeClass('has-error');
+                        $('#errorRegistration').text('')
+                        $('#billInfomation').show();
+                    }
+                    else {
+                        $('#errorRegistration').text(data.Message)
+                    }
+                });
+            }
+
+        }
+    }
+    function submitCreateCandidate() {
+        if ($('#CandidateName').val() === '') {
+            $('#errorCandidateName').addClass('has-error');
+            $('#errorCandidateNameValue').text('Vui lòng nhập họ và tên ứng viên');
+
+        }
+        else {
+            $('#errorCandidateName').removeClass('has-error');
+            $('#errorCandidateNameValue').text('');
+            $('#identifyCardSend').val($('#identifyCard').val());
+
+            $('#createCandidate').submit();
+
+        }
+    }
+    function cancelSummitCreateCandidate() {
+        $('#errorCandidateName').removeClass('has-error');
+        $('#errorCandidateNameValue').text('');
+        $('#billInfomation').hide();
+        $('#identifyCard').prop('disabled', false);
+        $('#submitIndentifyCard').removeClass('disabled');
+    }
+</script>

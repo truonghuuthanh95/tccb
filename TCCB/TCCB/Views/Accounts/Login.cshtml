@@ -1,0 +1,99 @@
+﻿
+@{
+    Layout = null;
+    var Account = (TCCB.Models.DAO.Account)Session[CommonConstants.USER_SESSION];
+
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Đăng nhập</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    
+    
+</head>
+<body>
+    <div>
+        <div>
+            <div class="login-backgound col-sm-12">
+                <div class="login-box col-sm-4 col-sm-offset-4">
+                    <div class="panel panel-default">
+                        <form id="Login" onsubmit="requestLogin();">
+                            <div class="panel-body">
+                                <div class="text-center">
+                                    <img src="~/Content/images/logo_so.png" class="logo-login">
+                                </div>
+                                <div class="form-group has-feedback" id="errorInputUserName">
+                                    <span class="input-group">
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-user"></span>
+                                        </span>
+                                        <input placeholder="Tên đăng nhập" id="Username" name="Username" type="text" class="form-control input-lg" value="">
+                                    </span>
+                                    <span class="help-block help-block-true" id="errorUsername"></span>
+                                </div><div class="form-group has-feedback" id="errorInputPassword">
+                                    <span class="input-group">
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-lock"></span>
+                                        </span>
+                                        <input placeholder="Mật khẩu" id="Password" name="Password" type="password" class="form-control input-lg" value="">
+                                    </span>
+                                    <span class="help-block help-block-true" id="errorPassword"></span>
+                                </div>
+                                <p class="text-center text-danger" id="errorLogin"></p>
+                            </div>
+                            <div class="panel-footer">
+                            <button type="button" class="btn btn-lg btn-success btn-block" onclick="requestLogin();">ĐĂNG NHẬP</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+
+            function requestLogin() {
+
+                if ($('#Username').val() == '') {
+                    $('#errorInputUserName').addClass('has-error');
+                    $('#errorUsername').text('Vui lòng nhập tên đăng nhập');
+                }
+                if ($("#Password").val() == '') {
+                    $('#errorInputPassword').addClass('has-error');
+                    $('#errorPassword').text('Vui lòng nhập mật khẩu');
+                    
+                }
+                if ($('#Username').val() !== '' && $("#Password").val() !== '') {
+                    $('#errorInputUserName').removeClass('has-error');
+                    $('#errorUsername').text('');
+                    $('#errorInputPassword').removeClass('has-error');
+                    $('#errorPassword').text('');
+                    $.post("/requestLogin", {
+                        Username: $('#Username').val(),
+                        Password: $("#Password").val(),
+                    }, function (data, status) {
+                        if (data.Status == 200) {                        
+                            var account = JSON.parse(data.Results);
+                            
+                            if (account.RoleId == 3) {
+                               
+                                window.location.replace('/xuathoadon')
+                            }
+                        }
+                        else {
+                            $('#errorLogin').text(data.Message)
+                        }
+                    });
+                }
+                
+            }
+    </script>
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+</body>
+</html>
