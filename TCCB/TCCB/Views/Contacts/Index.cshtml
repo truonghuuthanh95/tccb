@@ -1,0 +1,46 @@
+﻿@model IEnumerable<TCCB.Models.DAO.ContactInfomation>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    //IEnumerable<TCCB.Models.DAO.ManagementUnit> managenmentUnit = Model.Select(s => s.ManagementUnit).Distinct();
+}
+<div class="col-sm-10 col-sm-offset-1">
+    <h3 class="text-center text-primary">DANH SÁCH LIÊN HỆ THEO TỪNG CƠ QUAN</h3>
+    <h4 class="text-center text-warning"><i>Nhấn vào để xem chi tiết</i></h4>
+    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+        @{
+            foreach (var item in Model.Select(s => s.ManagementUnit).Distinct())
+            {
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="heading+@item.Id">
+                        <h4 class="panel-title">
+                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapse+@item.Id">
+                                @item.FullName
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading+@item.Id">
+                        <div class="panel-body">
+                            @{
+                                foreach (var item02 in Model.Where(s => s.ManagementUnitId == item.Id))
+                                {
+                                    <ul>
+                                        <li>
+                                            <b>@item02.Name</b>
+                                            <div class="contact-info">
+                                                <p>@item02.Position </p><p>
+                                                    <span class="glyphicon glyphicon-envelope"></span><a href="mailto:@item02.Email"> lehongquan220782@gmail.com</a>.
+                                                </p><p><span class="glyphicon glyphicon-earphone"></span><a href="tel:@item02.PhoneNumber"> @item02.PhoneNumber</a></p>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+
+    </div>
+</div>

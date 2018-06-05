@@ -17,6 +17,9 @@ namespace TCCB.Repositories.Interfaces
         RegistrationInterview UpdateRegistrationInterviewApprovedBy(RegistrationInterviewDTO registrationInterviewDTO);
         RegistrationInterview GetRegistrationInterviewByIdWithDetail(int id);
         List<RegistrationInterview> GetRegistrationInterviewByIdentidfyCardAndManagementUnitId(string identifyCard, int? managementUnitId);
-        List<RegistrationInterview> GetAllRegistrationInterviewByManagementUnitId(int id);
+        List<RegistrationInterview> GetAllRegistrationInterviewByManagementUnitId(int? id);
+        List<RegistrationInterview> GetRegistrationInterviewsByManagementUnitIdCompleted(int? id);
+        List<RegistrationInterview> GetRegistrationInterviewsByManagementUnitIdInProcess(int? id);
+        List<RegistrationInterview> GetAllRegistrationInterviewByManagementUnitIdWithDetail(int? id);
     }
 }

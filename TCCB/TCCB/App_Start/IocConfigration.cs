@@ -39,7 +39,7 @@ namespace TCCB.App_Start
             container.RegisterType<IStatusWorikingInEducationRepository, StatusWorikingInEducationRepository>(new HierarchicalLifetimeManager());
             container.RegisterType<ISchoolDegreeRepository, SchoolDegreeRepository>(new HierarchicalLifetimeManager());
             container.RegisterType<IAccountRepository, AccountRepository>(new HierarchicalLifetimeManager());
-
+            container.RegisterType<IContactInfomationRepository, ContactInformationRepository>(new HierarchicalLifetimeManager());
         }
     }
 }

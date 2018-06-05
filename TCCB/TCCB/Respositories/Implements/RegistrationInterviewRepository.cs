@@ -80,9 +80,10 @@ namespace TCCB.Repositories.Implements
             return GetRegistrationInterviewByIdWithDetail(registrationInterview.Id);
         }
 
-        public List<RegistrationInterview> GetAllRegistrationInterviewByManagementUnitId(int id)
+        public List<RegistrationInterview> GetAllRegistrationInterviewByManagementUnitId(int? id)
         {
             List<RegistrationInterview> registrationInterviews = _db.RegistrationInterviews
+                .Include("ManagementUnit")
                 .Where(s => s.CreatedAtManagementUnitId == id)
                 .Where(s => s.CreatedAt.Value.Year == DateTime.Now.Year)
                 .ToList();
@@ -129,7 +130,8 @@ namespace TCCB.Repositories.Implements
 
         public RegistrationInterview GetRegistrationInterviewByIdWithDetail(int id)
         {
-            RegistrationInterview registrationInterview = _db.RegistrationInterviews.Include("CurrentLivingAddress.Ward.District.Province")
+            RegistrationInterview registrationInterview = _db.RegistrationInterviews
+                .Include("CurrentLivingAddress.Ward.District.Province")
                 .Include("HouseHold.Ward.District.Province")
                 .Include("DegreeClassification")
                 .Include("District")
@@ -146,9 +148,48 @@ namespace TCCB.Repositories.Implements
                 .Include("StatusWorikingInEducation")
                 .Include("Subject.PositionInterview")
                 .Include("TrainningCategory")
-                
+                .Include("Province")
                 .SingleOrDefault(s => s.Id == id);
             return registrationInterview;
+        }
+
+        public List<RegistrationInterview> GetRegistrationInterviewsByManagementUnitIdInProcess(int? id)
+        {
+            List<RegistrationInterview> registrationInterviews = _db.RegistrationInterviews
+                .Include("ManagementUnit")
+                .Where(s => s.CreatedAtManagementUnitId == id)
+                .Where(s => s.CreatedAt.Value.Year == DateTime.Now.Year)
+                .Where(s => s.PhoneNumber == null)               
+                .ToList();
+            return registrationInterviews;
+        }
+
+        public List<RegistrationInterview> GetRegistrationInterviewsByManagementUnitIdCompleted(int? id)
+        {
+            List<RegistrationInterview> registrationInterviews = _db.RegistrationInterviews
+                .Include("CurrentLivingAddress.Ward.District.Province")
+               .Include("HouseHold.Ward.District.Province")
+               .Include("DegreeClassification")
+               .Include("District")
+               .Include("District1")
+               .Include("District2")
+               .Include("District2")
+               .Include("ForeignLanguageCertification")
+               .Include("GraduationClassfication")
+               .Include("HighestLevelEducation")
+               .Include("InfomationTechnologyDegree")
+               .Include("ManagementUnit")
+               .Include("SchoolDegree")
+               .Include("SpecializedTraining")
+               .Include("StatusWorikingInEducation")
+               .Include("Subject.PositionInterview")
+               .Include("TrainningCategory")
+               .Include("Province")
+               .Where(s => s.CreatedAtManagementUnitId == id)
+               .Where(s => s.CreatedAt.Value.Year == DateTime.Now.Year)
+               .Where(s => s.PhoneNumber != null)
+               .ToList();
+            return registrationInterviews;
         }
 
         public RegistrationInterview UpdateRegistrationInterview(RegistrationInterviewDTO registrationInterviewDTO)
@@ -197,6 +238,10 @@ namespace TCCB.Repositories.Implements
             {
                 registrationInterview.CaptionProjectPoint = registrationInterviewDTO.CaptionProjectPoint;
             }
+            else
+            {
+                registrationInterview.CaptionProjectPoint = null;
+            }
             registrationInterview.TrainningCatergoryId = registrationInterviewDTO.TrainningCatergoryId;
             registrationInterview.HighestLevelEducationId = registrationInterviewDTO.HighestLevelEducationId;
             if (registrationInterviewDTO.TrainningCatergoryId == 1 || registrationInterviewDTO.TrainningCatergoryId == 3 || registrationInterviewDTO.TrainningCatergoryId == 5)
@@ -206,6 +251,7 @@ namespace TCCB.Repositories.Implements
             registrationInterview.InfomationTechnologyDegreeId = registrationInterviewDTO.InfomationTechnologyDegreeId;
 
             registrationInterview.UniversityLocation = registrationInterviewDTO.UniversityLocation;
+            registrationInterview.UniversityName = registrationInterviewDTO.UniversityName;
             registrationInterview.NamVaoNghanh = registrationInterviewDTO.NamVaoNghanh;
             registrationInterview.MaNgach = registrationInterviewDTO.MaNgach;
             registrationInterview.MocNangLuongLansau = registrationInterviewDTO.MocNangLuongLansau;
@@ -297,6 +343,33 @@ namespace TCCB.Repositories.Implements
             }
 
             return GetRegistrationInterviewByIdWithDetail(registrationInterview.Id);
+        }
+
+        public List<RegistrationInterview> GetAllRegistrationInterviewByManagementUnitIdWithDetail(int? id)
+        {
+            List<RegistrationInterview> registrationInterviews = _db.RegistrationInterviews
+                .Include("CurrentLivingAddress.Ward.District.Province")
+                .Include("HouseHold.Ward.District.Province")
+                .Include("DegreeClassification")
+                .Include("District")
+                .Include("District1")
+                .Include("District2")
+                .Include("District2")
+                .Include("ForeignLanguageCertification")
+                .Include("GraduationClassfication")
+                .Include("HighestLevelEducation")
+                .Include("InfomationTechnologyDegree")
+                .Include("ManagementUnit")
+                .Include("SchoolDegree")
+                .Include("SpecializedTraining")
+                .Include("StatusWorikingInEducation")
+                .Include("Subject.PositionInterview")
+                .Include("TrainningCategory")
+                .Include("Province")
+                .Where(s => s.CreatedAtManagementUnitId == id)
+                .Where(s => s.CreatedAt.Value.Year == DateTime.Now.Year)               
+                .ToList();
+            return registrationInterviews;
         }
     }
 }

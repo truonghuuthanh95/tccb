@@ -122,19 +122,22 @@ namespace TCCB.Controllers
             {
                 return Json(new ResponseResult(403, "Something went wrong when updated", null));
             }
-            var registrationInterviewJson = JsonConvert.SerializeObject(registrationInterview,
-            Formatting.None,
-            new JsonSerializerSettings()
-            {
-                ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
-            });
-            return Json(new ResponseResult(200, "success", registrationInterviewJson));
+           
+            //var registrationInterviewJson = JsonConvert.SerializeObject(registrationInterview,
+            //Formatting.None,
+            //new JsonSerializerSettings()
+            //{
+            //    ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            //});
+            
+            return Json(new ResponseResult(200, "success", null));
         }
-        [Route("inhoso")]
+        [Route("inhoso/{id}")]
         [HttpGet]
-        public ActionResult PrintRegistrationInterview()
+        public ActionResult PrintRegistrationInterview(int id)
         {
-            return View();
+            RegistrationInterview registrationInterview = registrationInterviewRepository.GetRegistrationInterviewByIdWithDetail(id);
+            return View(registrationInterview);
         }
     }
 }

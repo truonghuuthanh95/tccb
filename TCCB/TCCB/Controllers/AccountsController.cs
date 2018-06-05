@@ -51,5 +51,12 @@ namespace TCCB.Controllers
             return Json(new ResponseResult(200, "success", accountJson), JsonRequestBehavior.AllowGet);
 
         }
+        [Route("logout")]
+        [HttpGet]
+        public ActionResult Logout()
+        {
+            Session.RemoveAll();
+            return RedirectToAction("Index", "Home");
+        }
     }
 }

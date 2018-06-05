@@ -1,0 +1,73 @@
+﻿@model TCCB.Models.DTO.StatusRegistrationDTO
+@{
+    ViewBag.Title = "Quản lý";
+    Layout = "~/Views/Shared/_LayoutManager.cshtml";
+    var BASE_URL = CommonConstants.BASE_URL;
+}
+
+
+
+<div class="col-sm-10 col-sm-offset-1">
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-sm-3 col-xs-3">
+                            <span class="status-icon glyphicon glyphicon-pushpin"></span>
+                        </div>
+                        <div class="col-sm-9 col-xs-9">
+                            <div class="text-center page-header"><h1>@Model.Registed</h1></div>
+                            <h4 class="text-center">ĐÃ ĐĂNG KÍ</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <button class="btn btn-primary btn-block" onclick="exportExcel(1)">XUẤT EXCEL</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-sm-3 col-xs-3">
+                            <span class="status-icon glyphicon glyphicon-ok"></span>
+                        </div>
+                        <div class="col-sm-9 col-xs-9">
+                            <div class="text-center page-header"><h1>@Model.Completed</h1></div>
+                <h4 class="text-center">HOÀN THÀNH</h4>
+            </div>
+            </div>
+            </div>
+            <div class="panel-footer">
+                <button class="btn btn-success btn-block" onclick="exportExcel(2)">XUẤT EXCEL</button>
+            </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="panel panel-danger">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-sm-3 col-xs-3">
+                            <span class="status-icon glyphicon glyphicon-remove"></span>
+                        </div>
+                        <div class="col-sm-9 col-xs-9">
+                            <div class="text-center page-header"><h1>@Model.Inprocess</h1></div>
+                            <h4 class="text-center">CHƯA CẬP NHẬT</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <button class="btn btn-danger btn-block" onclick="exportExcel(3)">XUẤT EXCEL</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function exportExcel(id) {    
+        window.location.href = '@BASE_URL/quanly/xuatexcel/' + id;
+    }
+</script>
