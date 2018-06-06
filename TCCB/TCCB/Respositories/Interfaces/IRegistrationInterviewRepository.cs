@@ -21,5 +21,6 @@ namespace TCCB.Repositories.Interfaces
         List<RegistrationInterview> GetRegistrationInterviewsByManagementUnitIdCompleted(int? id);
         List<RegistrationInterview> GetRegistrationInterviewsByManagementUnitIdInProcess(int? id);
         List<RegistrationInterview> GetAllRegistrationInterviewByManagementUnitIdWithDetail(int? id);
+        List<RegistrationInterview> GetAllRegistrationInterviewByManagementUnitIdValidRegistration(int? id);
     }
 }

@@ -232,10 +232,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/28/2015 04:04:30</publishTime>
     </File>
     <File Include="bin/TCCB.dll">
-      <publishTime>06/05/2018 16:25:28</publishTime>
+      <publishTime>06/05/2018 20:05:25</publishTime>
     </File>
     <File Include="bin/TCCB.pdb">
-      <publishTime>06/05/2018 16:25:28</publishTime>
+      <publishTime>06/05/2018 20:05:25</publishTime>
     </File>
     <File Include="bin/Unity.Abstractions.dll">
       <publishTime>04/18/2018 19:15:06</publishTime>
@@ -379,7 +379,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/04/2018 13:28:03</publishTime>
     </File>
     <File Include="Views/Candidates/UpdateRegistrationInterview.cshtml">
-      <publishTime>06/05/2018 16:08:24</publishTime>
+      <publishTime>06/05/2018 20:03:50</publishTime>
     </File>
     <File Include="Views/Cashiers/ExportBill.cshtml">
       <publishTime>06/04/2018 13:26:32</publishTime>

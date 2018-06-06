@@ -256,6 +256,12 @@ namespace TCCB.Repositories.Implements
             registrationInterview.MaNgach = registrationInterviewDTO.MaNgach;
             registrationInterview.MocNangLuongLansau = registrationInterviewDTO.MocNangLuongLansau;
             registrationInterview.HeSoLuong = registrationInterviewDTO.HeSoLuong;
+            
+            if (registrationInterviewDTO.ReviewedBy != null)
+            {
+                registrationInterview.ReviewedBy = registrationInterviewDTO.ReviewedBy;
+                registrationInterview.DateInterview = DateTime.Now;
+            }
             _db.Entry(registrationInterview).State = EntityState.Modified;
             _db.Entry(currentLivingAddress).State = EntityState.Modified;
             _db.Entry(houseHold).State = EntityState.Modified;
@@ -369,6 +375,34 @@ namespace TCCB.Repositories.Implements
                 .Where(s => s.CreatedAtManagementUnitId == id)
                 .Where(s => s.CreatedAt.Value.Year == DateTime.Now.Year)               
                 .ToList();
+            return registrationInterviews;
+        }
+
+        public List<RegistrationInterview> GetAllRegistrationInterviewByManagementUnitIdValidRegistration(int? id)
+        {
+            List<RegistrationInterview> registrationInterviews = _db.RegistrationInterviews
+                .Include("CurrentLivingAddress.Ward.District.Province")
+                .Include("HouseHold.Ward.District.Province")
+                .Include("DegreeClassification")
+                .Include("District")
+                .Include("District1")
+                .Include("District2")
+                .Include("District2")
+                .Include("ForeignLanguageCertification")
+                .Include("GraduationClassfication")
+                .Include("HighestLevelEducation")
+                .Include("InfomationTechnologyDegree")
+                .Include("ManagementUnit")
+                .Include("SchoolDegree")
+                .Include("SpecializedTraining")
+                .Include("StatusWorikingInEducation")
+                .Include("Subject.PositionInterview")
+                .Include("TrainningCategory")
+                .Include("Province")
+                .Include("Account1")
+                .Where(s => s.CreatedAtManagementUnitId == id)
+                .Where(s => s.CreatedAt.Value.Year == DateTime.Now.Year)
+                .Where(s => s.ReviewedBy != null).ToList();
             return registrationInterviews;
         }
     }

@@ -1,10 +1,11 @@
 ﻿@model TCCB.Models.DTO.CandidateModelInOneView
 
 @{
-    ViewBag.Title = "Cập nhật hồ sơ ứng tuyển";
+    ViewBag.Title = "ApproveRegistration";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    var BASE_URL = TCCB.CommonConstants.BASE_URL;
+    var BASE_URL = CommonConstants.BASE_URL;
 }
+
 
 <script>
 
@@ -19,19 +20,29 @@
 
     <div class="panel panel-default" id="personalInfomation">
         <div class="panel-heading">
-            <h3 class="panel-title">Cập nhật hồ sơ ứng tuyển</h3>
+            <h3 class="panel-title">Rà xoát hồ sơ ứng tuyển</h3>
         </div>
         <div class="panel-body">
-            <p class="text-center text-warning">Vui lòng điền thông tin theo thứ tự. Mọi thắc mắc vui lòng liên hệ (Chọn trên thanh công cụ)</p>
+            
             <form>
                 <div>
                     <div class="row">
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                <label class="control-label">1.Họ và tên</label>
-                                <p class="form-control-static">@Model.RegistrationInterview.CandidateLastName @Model.RegistrationInterview.CandidateFirstName</p>
+                        <div class="col-sm-4">                          
+                            <div class="form-group has-feedback" id="errorCandidateLastName">
+                                <label class="control-label">1.Họ và tên lót</label>
+                                <input placeholder="Số nhà" name="CandidateLastName" type="text" id="CandidateLastName" class="form-control" value="@Model.RegistrationInterview.CandidateLastName">
+                                <span class="help-block" id="errorCandidateLastNameMessage"></span>
                             </div>
-                        </div><div class="col-sm-4">
+
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group has-feedback" id="errorCandidateFirstName">
+                                <label class="control-label">1.2 Tên</label>
+                                <input placeholder="Số nhà" name="CandidateFirstName" type="text" id="CandidateFirstName" class="form-control" value="@Model.RegistrationInterview.CandidateFirstName">
+                                <span class="help-block" id="errorCandidateFirstNameMessage"></span>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
                             <div class="form-group">
                                 <label class="control-label">2.Số CMND</label>
                                 <p class="form-control-static">@Model.RegistrationInterview.IdentifyCard</p>
@@ -174,9 +185,7 @@
                             <div class="col-sm-5">
                                 <div class="form-group has-feedback" id="errorHouseNumberCurrentLiving">
                                     <label for="formControlsSelect" class="control-label">
-                                        Số nhà <span class="text-danger text-danger-default">
-                                            <span class="glyphicon glyphicon-star"></span>
-                                        </span>
+                                        Số nhà 
                                     </label>
                                     <input placeholder="Số nhà" name="HouseNumberCurrentLiving" type="text" id="HouseNumberCurrentLiving" class="form-control" value="@Model.RegistrationInterview.CurrentLivingAddress.HouseNumber">
                                     <span class="help-block" id="errorHouseNumberCurrentLivingMessage"></span>
@@ -336,6 +345,22 @@
             })
         })
         function checkValidPersonalInformation() {
+            if ($('#CandidateFirstName').val() == '') {
+                $('#errorCandidateFirstName').addClass('has-error');
+                $('#errorCandidateFirstNameMessage').text('Vui lòng nhập');
+            }
+            else {
+                $('#errorCandidateFirstName').removeClass('has-error');
+                $('#errorCandidateFirstNameMessage').text('');
+            }
+            if ($('#CandidateLastName').val() == '') {
+                $('#errorCandidateLastName').addClass('has-error');
+                $('#errorCCandidateLastNameMessage').text('Vui lòng nhập');
+            }
+            else {
+                $('#errorCandidateLastName').removeClass('has-error');
+                $('#errorCandidateLastNameMessage').text('');
+            }
             if ($('#HouseNumberCurrentLiving').val() == '') {
                 $('#errorHouseNumberCurrentLiving').addClass('has-error');
                 $('#errorHouseNumberCurrentLivingMessage').text('Vui lòng nhập địa chỉ');
@@ -653,7 +678,7 @@
                         </div>
                     </div>
                 </div>
-                
+
             </form>
         </div><div class="panel-footer">
             <div class="row">
@@ -925,8 +950,6 @@
             </div>
         </div>
     </div>
-    <input type="hidden" id="CandidateFirstName" value="@Model.RegistrationInterview.CandidateFirstName" />
-    <input type="hidden" id="CandidateLastName" value="@Model.RegistrationInterview.CandidateLastName" />
     <script>
         function chechAnotherInformation() {
             var SubjectToInterview = $('#SubjectToInterviewId option:selected').text();
@@ -944,13 +967,14 @@
                 $("#errorIsAgreeMessage").text('Vui lòng check vào nếu như thông tin là đúng sự thật');
             }
             else {
+
                 $("#errorIsAgree").removeClass('has-error');
                 $("#errorIsAgreeMessage").text('');
             }
             if (!$("#errorIsAgree").hasClass('has-error') && !$('#errorIsHadNghiepVuSupham').hasClass('has-error')) {
                 $('#submitUpdate').hide();
                 $('#loader').show();
-                $.post('@BASE_URL' + '/hosoungtuyen/postcapnhat', {
+                $.post('@BASE_URL' + '/hosohople', {
                     Id: @Model.RegistrationInterview.Id,
                     CandidateFirstName: $('#CandidateFirstName').val(),
                     CandidateLastName: $('#CandidateLastName').val(),
@@ -992,10 +1016,9 @@
                     MaNgach: $('#MaNgach').val(),
                     HeSoLuong: $('#HeSoLuong').val(),
                     MocNangLuongLansau: $('#MocNangLuongLansau').val(),
-                }, function (data, status) {
-                    debugger
-                    if (data.Status == 200) {
-                        window.location.replace('/hosoungtuyen/inhoso/@Model.RegistrationInterview.Id')
+                }, function (data, status) {                   
+                    if (data.Status == 200) {                      
+                        window.location.replace('@BASE_URL/hosohople/capnhatthanhcong/@Model.RegistrationInterview.Id')
                     }
                 })
             }

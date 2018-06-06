@@ -36,6 +36,7 @@ namespace TCCB.Controllers
             List<RegistrationInterview> registrationInterviews = registrationInterviewRepository.GetAllRegistrationInterviewByManagementUnitId(usersession.ManagementUnitId);
             int completeRegistration = 0;
             int inprocessRegistration = 0;
+            int validRegistration = 0;
             foreach (var item in registrationInterviews)
             {
                 if (item.PhoneNumber != null)
@@ -46,9 +47,13 @@ namespace TCCB.Controllers
                 {
                     inprocessRegistration += 1;
                 }
+                if (item.ReviewedBy != null)
+                {
+                    validRegistration += 1;
+                }
             }
             
-            StatusRegistrationDTO statusRegistrationDTO = new StatusRegistrationDTO(registrationInterviews.Count, completeRegistration, inprocessRegistration);
+            StatusRegistrationDTO statusRegistrationDTO = new StatusRegistrationDTO(registrationInterviews.Count, completeRegistration, inprocessRegistration, validRegistration);
 
             return View(statusRegistrationDTO);
         }
@@ -84,14 +89,25 @@ namespace TCCB.Controllers
 
                 return File(filePath, "application/vnd.ms-excel", fileName);
             }
-            else
+            else if (id == 1)
             {
                 List<RegistrationInterview> registrationInterviews = registrationInterviewRepository.GetAllRegistrationInterviewByManagementUnitId(id);
                 string fileName = string.Concat("ds-dangky.xlsx");
                 string filePath = System.Web.HttpContext.Current.Server.MapPath("~/Utils/Excel/" + fileName);
                 await Utils.ExportExcel.GenerateXLSRegistrationRegisted(registrationInterviews, filePath);
                 return File(filePath, "application/vnd.ms-excel", fileName);
-            }            
+            }
+
+            else
+            {
+                List<RegistrationInterview> registrationInterviews = registrationInterviewRepository.GetAllRegistrationInterviewByManagementUnitIdValidRegistration(id);
+
+                string fileName = string.Concat("ds-hoplehoso.xlsx");
+                string filePath = System.Web.HttpContext.Current.Server.MapPath("~/Utils/Excel/" + fileName);
+                await Utils.ExportExcel.GenerateXLSRegistrationRegisted(registrationInterviews, filePath);
+                return File(filePath, "application/vnd.ms-excel", fileName);
+            }
+                   
 
         }
     }

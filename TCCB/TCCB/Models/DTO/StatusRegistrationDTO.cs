@@ -10,12 +10,14 @@ namespace TCCB.Models.DTO
         public int Registed { get; set; }
         public int Completed { get; set; }
         public int Inprocess { get; set; }
+        public int Reviewed { get; set; }
 
-        public StatusRegistrationDTO(int registed, int completed, int inprocess)
+        public StatusRegistrationDTO(int registed, int completed, int inprocess, int reviewed)
         {
             Registed = registed;
             Completed = completed;
             Inprocess = inprocess;
+            Reviewed = reviewed;
         }
     }
 }

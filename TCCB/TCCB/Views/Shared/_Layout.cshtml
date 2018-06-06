@@ -1,55 +1,97 @@
-﻿<!DOCTYPE html>
+﻿
+
+@{
+    Layout = null;
+    var Account = (TCCB.Models.DAO.Account)Session[CommonConstants.USER_SESSION];
+
+}
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tuyển dụng</title>
-    
+
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
     @Scripts.Render("~/bundles/jquery")
-        @Scripts.Render("~/bundles/bootstrap")
-        <nav class="header-color navbar navbar-default">
-            <div class="container">
-    <div class="navbar-header">
-            <a class="logo-style-padding-top navbar-brand active" aria-current="true" href="/">
-                <img src="~/Content/images/logo_so.png" class="logo-style img-rounded"></a>
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                </button>
-        </div>
-    
-    <div class="navbar-collapse collapse" id="bs-example-navbar-collapse-1">
-        <ul class="nav-link nav navbar-nav navbar-left">
-            <li role="presentation" class="nothing">
-                <a href="/"><span class="glyphicon glyphicon-home"></span> Trang Chủ</a>
-            </li>
-        </ul>
-        <ul class="nav-link nav navbar-nav navbar-right">
-            <li role="presentation" class="">
-                <a href="/login" role="button">
-                    <span class="glyphicon glyphicon-log-in"></span> Đăng nhập
-                </a>
-            </li>
-            <li role="presentation" class="">
-                <a href="/lienhe" role="button">
-                    <span class="glyphicon glyphicon-earphone"></span> Liên Hệ
-                </a>
-            </li>
-
-        </ul>
-    </div>
-</div>
-        </nav>
+    @Scripts.Render("~/bundles/bootstrap")
+    <nav class="header-color navbar navbar-default">
         <div class="container">
-            @RenderBody()
-            <hr />           
-        @*@RenderSection("scripts", required: false)*@
+            <div class="navbar-header">
+                <a class="logo-style-padding-top navbar-brand active" aria-current="true" href="/">
+                    <img src="~/Content/images/logo_so.png" class="logo-style img-rounded">
+                </a>
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
             </div>
+
+            <div class="navbar-collapse collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav-link nav navbar-nav navbar-left">
+                    <li role="presentation" class="nothing">
+                        <a href="/"><span class="glyphicon glyphicon-home"></span> Trang Chủ</a>
+                    </li>
+                </ul>
+                <ul class="nav-link nav navbar-nav navbar-right">
+                    @{
+                        if (Account == null)
+                        {
+                <li role="presentation" class="">
+                    <a href="/login" role="button">
+                        <span class="glyphicon glyphicon-log-in"></span> Đăng nhập
+                    </a>
+                </li>
+}
+else
+{
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Chào, @Account.FirstName <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Đổi mật khẩu</a></li>
+                        @{
+        if (Account.RoleId == 3)
+        {
+                    <li><a href="/xuathoadon">Xuất hóa đơn</a></li>
+}
+if (Account.RoleId == 2 || Account.RoleId == 3)
+{
+                    <li><a href="/raxoathoso">Rà xoát hồ sơ</a></li>
+}
+if (Account.RoleId == 2)
+{
+                    <li><a href="/quanly">Trạng thái đăng kí</a></li>
+}
+                        }
+
+
+                        <li role="separator" class="divider"></li>
+                        <li><a href="/logout">Đăng xuất</a></li>
+                    </ul>
+                </li>
+}
+                    }
+
+                    <li role="presentation" class="">
+                        <a href="/lienhe" role="button">
+                            <span class="glyphicon glyphicon-earphone"></span> Liên Hệ
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        @RenderBody()
+        <hr />
+        @*@RenderSection("scripts", required: false)*@
+    </div>
 </body>
 </html>

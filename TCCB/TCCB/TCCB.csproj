@@ -184,6 +184,7 @@
     <Compile Include="Controllers\ContactsController.cs" />
     <Compile Include="Controllers\ErrorsController.cs" />
     <Compile Include="Controllers\ManagersController.cs" />
+    <Compile Include="Controllers\StaffsController.cs" />
     <Compile Include="Models\DAO\Account.cs" />
     <Compile Include="Models\DAO\ContactInfomation.cs" />
     <Compile Include="Models\DAO\Country.cs" />
@@ -322,10 +323,13 @@
     <Content Include="Utils\Excel\ds-chuahoanthanh.xlsx" />
     <Content Include="Utils\Excel\ds-dangky.xlsx" />
     <Content Include="Views\Contacts\Index.cshtml" />
+    <Content Include="Views\Staffs\Index.cshtml" />
+    <Content Include="Views\Staffs\ApproveRegistration.cshtml" />
+    <Content Include="Views\Staffs\ApprovedRegistration.cshtml" />
+    <Content Include="Utils\Excel\ds-hosohople.xlsx" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\CommonsAPI\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

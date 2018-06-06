@@ -1,7 +1,7 @@
 ﻿@model TCCB.Models.DTO.StatusRegistrationDTO
 @{
     ViewBag.Title = "Quản lý";
-    Layout = "~/Views/Shared/_LayoutManager.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
     var BASE_URL = CommonConstants.BASE_URL;
 }
 
@@ -23,7 +23,17 @@
                     </div>
                 </div>
                 <div class="panel-footer">
-                    <button class="btn btn-primary btn-block" onclick="exportExcel(1)">XUẤT EXCEL</button>
+                    @{
+                        if (Model.Registed < 1)
+                        {
+                            <button class="btn btn-primary btn-block disabled">XUẤT EXCEL</button>
+                        }
+                        else
+                        {
+                            <button class="btn btn-primary btn-block" onclick="exportExcel(1)">XUẤT EXCEL</button>
+                        }
+                    }
+
                 </div>
             </div>
         </div>
@@ -36,13 +46,23 @@
                         </div>
                         <div class="col-sm-9 col-xs-9">
                             <div class="text-center page-header"><h1>@Model.Completed</h1></div>
-                <h4 class="text-center">HOÀN THÀNH</h4>
-            </div>
-            </div>
-            </div>
-            <div class="panel-footer">
-                <button class="btn btn-success btn-block" onclick="exportExcel(2)">XUẤT EXCEL</button>
-            </div>
+                            <h4 class="text-center">HOÀN THÀNH</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    @{
+                        if (Model.Completed < 1)
+                        {
+                            <button class="btn btn-success btn-block disabled">XUẤT EXCEL</button>
+                        }
+                        else
+                        {
+                            <button class="btn btn-success btn-block" onclick="exportExcel(2)">XUẤT EXCEL</button>
+                        }
+                    }
+
+                </div>
             </div>
         </div>
         <div class="col-sm-4">
@@ -59,7 +79,54 @@
                     </div>
                 </div>
                 <div class="panel-footer">
-                    <button class="btn btn-danger btn-block" onclick="exportExcel(3)">XUẤT EXCEL</button>
+                    @{
+                        if (Model.Inprocess < 1)
+                        {
+                            <button class="btn btn-danger btn-block disabled">XUẤT EXCEL</button>
+                        }
+                        else
+                        {
+                            <button class="btn btn-danger btn-block" onclick="exportExcel(3)">XUẤT EXCEL</button>
+                        }
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6 col-sm-offset-3">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-sm-3 col-xs-3">
+                            <span class="status-icon glyphicon glyphicon-ok-circle"></span>
+                        </div>
+                        <div class="col-sm-9 col-xs-9">
+                            <div class="text-center page-header"><h1>@Model.Reviewed</h1></div>
+                            <h4 class="text-center">HỒ SƠ HỢP LỆ</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            @{
+                                if (Model.Reviewed < 1)
+                                {
+                                    <button class="btn btn-primary btn-block disabled">XUẤT EXCEL</button>
+                                }
+                                else
+                                {
+                                    <button class="btn btn-primary btn-block" onclick="exportExcel(4)">XUẤT EXCEL</button>
+                                }
+                            }
+
+                        </div>
+                        <div class="col-sm-6">
+                            <button class="btn btn-success btn-block" onclick="exportExcel(3)">XẾP PHÒNG</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -67,7 +134,7 @@
 </div>
 
 <script>
-    function exportExcel(id) {    
+    function exportExcel(id) {
         window.location.href = '@BASE_URL/quanly/xuatexcel/' + id;
     }
 </script>

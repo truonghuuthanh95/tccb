@@ -112,24 +112,12 @@ namespace TCCB.Controllers
         [Route("postcapnhat")]
         [HttpPost]
         public ActionResult PostCapNhat(RegistrationInterviewDTO registrationInterviewDTO)
-        {
-            //if (!ModelState.IsValid)
-            //{
-            //    return Json(new ResponseResult(403, ModelState.Values.SelectMany(s => s.Errors).Select(s => s.ErrorMessage).ToString(), null));
-            //}
+        {            
             RegistrationInterview registrationInterview = registrationInterviewRepository.UpdateRegistrationInterview(registrationInterviewDTO);
             if (registrationInterview == null)
             {
                 return Json(new ResponseResult(403, "Something went wrong when updated", null));
-            }
-           
-            //var registrationInterviewJson = JsonConvert.SerializeObject(registrationInterview,
-            //Formatting.None,
-            //new JsonSerializerSettings()
-            //{
-            //    ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
-            //});
-            
+            }                      
             return Json(new ResponseResult(200, "success", null));
         }
         [Route("inhoso/{id}")]

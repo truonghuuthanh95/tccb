@@ -122,7 +122,8 @@
                                 </select>
                             </div>
                         </div>
-                    </div><div class="form-group">
+                    </div>
+                    <div class="form-group">
                         <label class="control-label">5.Nơi ở hiện tại</label>
                     </div>
                     <div class="col-sm-11 col-sm-offset-1 col-xs-11 col-xs-offset-1">
@@ -182,7 +183,8 @@
                                 </div>
                             </div>
                         </div>
-                    </div><div class="form-group">
+                    </div>
+                    <div class="form-group">
                         <label class="control-label">6.Hộ khẩu thường trú</label>
                     </div>
                     <div class="col-sm-11 col-sm-offset-1 col-xs-11 col-xs-offset-1">
@@ -249,7 +251,10 @@
                                         }
                                     </select>
                                 </div>
-                            </div><div class="col-sm-5">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-5">
                                 <div class="form-group has-feedback" id="errorHouseNumberHouseHold">
                                     <label for="formControlsSelect" class="control-label">
                                         Số nhà/Thôn <span class="text-danger text-danger-default">
@@ -261,7 +266,9 @@
                                 </div>
                             </div>
                         </div>
-                    </div><div class="row">
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="row">
                         <div class="col-sm-8">
                             <div class="form-group has-feedback" id="errorEmail">
                                 <label for="formControlsSelect" class="control-label">7.Địa chỉ email </label>
@@ -602,7 +609,8 @@
                             </select>
                         </div>
                     </div>
-                </div><div class="row">
+                </div>
+                <div class="row">
                     <div class="col-sm-5">
                         <div class="form-group">
                             <label for="formControlsSelect" class="control-label">20.Chứng chỉ tin hoc</label>
@@ -645,6 +653,7 @@
                         </div>
                     </div>
                 </div>
+                
             </form>
         </div><div class="panel-footer">
             <div class="row">
@@ -985,7 +994,7 @@
                     MocNangLuongLansau: $('#MocNangLuongLansau').val(),
                 }, function (data, status) {
                     debugger
-                    if (data.Status == 200) {                        
+                    if (data.Status == 200) {
                         window.location.replace('/hosoungtuyen/inhoso/@Model.RegistrationInterview.Id')
                     }
                 })
