@@ -340,7 +340,7 @@ namespace TCCB.Utils
                         rng.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
                         rng.Style.Font.Color.SetColor(Color.Red);
                     }
-                    using (ExcelRange rng = ws.Cells["A6:AB6"])
+                    using (ExcelRange rng = ws.Cells["A6:AC6"])
                     {
                         rng.Style.Font.Bold = true;
                         rng.Style.Fill.PatternType = ExcelFillStyle.Solid;        //Set Pattern for the background to Solid 

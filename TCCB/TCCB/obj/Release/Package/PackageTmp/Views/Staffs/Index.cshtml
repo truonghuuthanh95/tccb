@@ -1,0 +1,50 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var BASE_URL = CommonConstants.BASE_URL;
+}
+
+<div class="col-sm-8 col-sm-offset-2">
+    <div>
+        <div class="text-center checkIDBox">
+            <h3 class="text-center text-info">RÀ XOÁT HỒ SƠ ỨNG TUYỂN</h3>
+            <form class="form-inline">
+                <p class="text-warning">Vui lòng nhập số chứng minh nhân dân sau đó nhấn xác nhận để hệ thống kiểm tra</p>
+                <p class="text-danger" id="errorRegistration"></p>
+                <div class="form-group" id="errorRegistrationId">
+                    <label for="registrationId" class="control-label">Mã hồ sơ</label>
+                    <input placeholder="Mã hồ sơ" type="number" id="registrationId" class="form-control" value="">
+                </div>
+                <button type="button" class="btn btn-success" onclick="checkValidToRegistration();" id="submitIndentifyCard">XÁC NHẬN</button>
+                <span class="loader" id="loader" hidden></span>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    function checkValidToRegistration() {
+        if ($('#registrationId').val() == '') {
+            $('#errorRegistrationId').addClass('has-error');
+            $('#errorRegistration').text('Vui lòng nhập mã hồ sơ');
+        }
+        else {
+            $('#errorInputIdentifyCard').removeClass('has-error');
+            $('#errorRegistration').text('');            
+            $('#loader').show();
+            $('#submitIndentifyCard').addClass('disabled');
+            $.get("canbokiemtramahosohople/" + $('#registrationId').val(), function (data, status) {
+                if (data.Status != 200) {
+                    $('#loader').hide();
+                    $('#errorRegistration').text(data.Message);
+                    $('#submitIndentifyCard').removeClass('disabled');
+                }
+                else {
+                    window.location.replace("@BASE_URL/canbocapnhathoso/" + $('#registrationId').val());
+                }
+               
+            })
+        }
+    }
+</script>

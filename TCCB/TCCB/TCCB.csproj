@@ -327,6 +327,7 @@
     <Content Include="Views\Staffs\ApproveRegistration.cshtml" />
     <Content Include="Views\Staffs\ApprovedRegistration.cshtml" />
     <Content Include="Utils\Excel\ds-hosohople.xlsx" />
+    <Content Include="Views\Managers\UpdateCandidate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

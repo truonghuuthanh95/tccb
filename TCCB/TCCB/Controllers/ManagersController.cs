@@ -82,7 +82,7 @@ namespace TCCB.Controllers
             }
             else if (id == 3)
             {
-                List<RegistrationInterview> registrationInterviews = registrationInterviewRepository.GetRegistrationInterviewsByManagementUnitIdInProcess(id);
+                List<RegistrationInterview> registrationInterviews = registrationInterviewRepository.GetRegistrationInterviewsByManagementUnitIdInProcess(usersession.ManagementUnitId);
                 string fileName = string.Concat("ds-chuahoanthanh.xlsx");
                 string filePath = System.Web.HttpContext.Current.Server.MapPath("~/Utils/Excel/" + fileName);
                 await Utils.ExportExcel.GenerateXLSRegistrationInprocess(registrationInterviews, filePath);
@@ -91,7 +91,7 @@ namespace TCCB.Controllers
             }
             else if (id == 1)
             {
-                List<RegistrationInterview> registrationInterviews = registrationInterviewRepository.GetAllRegistrationInterviewByManagementUnitId(id);
+                List<RegistrationInterview> registrationInterviews = registrationInterviewRepository.GetAllRegistrationInterviewByManagementUnitId(usersession.ManagementUnitId);
                 string fileName = string.Concat("ds-dangky.xlsx");
                 string filePath = System.Web.HttpContext.Current.Server.MapPath("~/Utils/Excel/" + fileName);
                 await Utils.ExportExcel.GenerateXLSRegistrationRegisted(registrationInterviews, filePath);
@@ -100,15 +100,23 @@ namespace TCCB.Controllers
 
             else
             {
-                List<RegistrationInterview> registrationInterviews = registrationInterviewRepository.GetAllRegistrationInterviewByManagementUnitIdValidRegistration(id);
+                List<RegistrationInterview> registrationInterviews = registrationInterviewRepository.GetAllRegistrationInterviewByManagementUnitIdValidRegistration(usersession.ManagementUnitId);
 
                 string fileName = string.Concat("ds-hoplehoso.xlsx");
                 string filePath = System.Web.HttpContext.Current.Server.MapPath("~/Utils/Excel/" + fileName);
-                await Utils.ExportExcel.GenerateXLSRegistrationRegisted(registrationInterviews, filePath);
+                await Utils.ExportExcel.GenerateXLSRegistrationIsValid(registrationInterviews, filePath);
                 return File(filePath, "application/vnd.ms-excel", fileName);
             }
                    
 
         }
+        [HttpGet]
+        [Route("capnhatketquaungvien")]
+        public ActionResult UpdateCandidate()
+        {
+
+            return View();
+        }
+            
     }
 }

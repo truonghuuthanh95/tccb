@@ -1,0 +1,40 @@
+﻿
+@{
+    ViewBag.Title = "UpdateCandidate";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3 class="text-center text-primary checkIDBox">
+    CẬP NHẬT KẾT QUẢ ỨNG VIÊN VỚI KẾT QUẢ ĐẠT
+</h3>
+<div class="col-sm-6 col-sm-offset-3" >
+    <form>
+
+        <div class="form-group">
+            <label for="exampleInputFile">Chọn file tải lên</label>
+            <input type="file" id="exampleInputFile" accept="xlsx">
+            <p class="help-block text-warning">Định dạng file excel bắt buộc <b class="text-danger">.xlsx</b>. <i><b>Ví dụ ds-ungvien.xlsx</b></i></p>
+        </div>
+
+        <button type="submit" class="btn btn-success">TẢI LÊN</button>
+    </form>
+</div>
+<script>
+    $("#exampleInputFile").validate({
+        onfocusout: function (e) {  // this option is not needed
+            this.element(e);       // this is the default behavior
+        },
+        rules: {
+            resume: {
+                required: true,
+                extension: "docx|rtf|doc|pdf"
+            }
+        },
+        messages: {  // <-- you must declare messages inside of "messages" option
+            resume: {
+                required: "input type is required",
+                extension: "select valid input file format"
+            }
+        }
+    });
+</script>

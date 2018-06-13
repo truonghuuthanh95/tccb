@@ -84,14 +84,16 @@
                         Password: $("#Password").val(),
                     }, function (data, status) {
                         if (data.Status == 200) {                        
-                            var account = JSON.parse(data.Results);
-                            
-                            if (account.RoleId == 3) {
-                               
+                            var account = JSON.parse(data.Results);                           
+                            if (account.RoleId == 3) {                             
                                 window.location.replace('/xuathoadon');
                             }
-                            if (account.RoleId == 2) {
+                            else if (account.RoleId == 2) {
                                 window.location.replace('/quanly');
+                            }
+                            
+                            else if (account.RoleId == 4) {
+                                window.location.replace('/raxoathoso');
                             }
                         }
                         else {
