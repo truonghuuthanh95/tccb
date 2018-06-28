@@ -13,6 +13,7 @@ namespace TCCB.Models.DAO
         public Subject()
         {
             RegistrationInterviews = new HashSet<RegistrationInterview>();
+            SubjectRequiredSchoolDegrees = new HashSet<SubjectRequiredSchoolDegree>();
         }
 
         public int Id { get; set; }
@@ -31,5 +32,8 @@ namespace TCCB.Models.DAO
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RegistrationInterview> RegistrationInterviews { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SubjectRequiredSchoolDegree> SubjectRequiredSchoolDegrees { get; set; }
     }
 }

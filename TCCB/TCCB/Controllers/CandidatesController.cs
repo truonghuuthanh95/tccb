@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using TCCB.Models.DAO;
 using TCCB.Models.DTO;
 using TCCB.Repositories.Interfaces;
+using TCCB.Respositories.Interfaces;
 
 namespace TCCB.Controllers
 {
@@ -26,8 +27,9 @@ namespace TCCB.Controllers
         ISubjectRepository subjectRepository;
         IDegreeClassificationRepository degreeClassificationRepository;
         ISchoolDegreeRepository degreeRepository;
+        ISubjectsRequiredSchoolDegreeRepository subjectsRequiredSchoolDegreeRepository;
 
-        public CandidatesController(IRegistrationInterviewRepository registrationInterviewRepository, IProvinceRepository provinceRepository, IDistrictRepository districtRepository, IWardRepository wardRepository, ITrainningCategoryRepository trainningCategoryRepository, IGraduationClassficationRepository graduationClassficationRepository, ISpecializedTrainingRepository specializedTrainingRepository, IHighestLevelEducationRepository highestLevelEducationRepository, IStatusWorikingInEducationRepository statusWorikingInEducationRepository, IInformationTechnologyDegree informationTechnologyDegree, IForeignLanguageRepository foreignLanguageRepository, ISubjectRepository subjectRepository, IDegreeClassificationRepository degreeClassificationRepository, ISchoolDegreeRepository degreeRepository)
+        public CandidatesController(IRegistrationInterviewRepository registrationInterviewRepository, IProvinceRepository provinceRepository, IDistrictRepository districtRepository, IWardRepository wardRepository, ITrainningCategoryRepository trainningCategoryRepository, IGraduationClassficationRepository graduationClassficationRepository, ISpecializedTrainingRepository specializedTrainingRepository, IHighestLevelEducationRepository highestLevelEducationRepository, IStatusWorikingInEducationRepository statusWorikingInEducationRepository, IInformationTechnologyDegree informationTechnologyDegree, IForeignLanguageRepository foreignLanguageRepository, ISubjectRepository subjectRepository, IDegreeClassificationRepository degreeClassificationRepository, ISchoolDegreeRepository degreeRepository, ISubjectsRequiredSchoolDegreeRepository subjectsRequiredSchoolDegreeRepository)
         {
             this.registrationInterviewRepository = registrationInterviewRepository;
             this.provinceRepository = provinceRepository;
@@ -43,9 +45,8 @@ namespace TCCB.Controllers
             this.subjectRepository = subjectRepository;
             this.degreeClassificationRepository = degreeClassificationRepository;
             this.degreeRepository = degreeRepository;
+            this.subjectsRequiredSchoolDegreeRepository = subjectsRequiredSchoolDegreeRepository;
         }
-
-
 
 
 
@@ -103,7 +104,7 @@ namespace TCCB.Controllers
             List<Subject> subjects = subjectRepository.GetSubjects();
             List<DegreeClassification> degreeClassifications = degreeClassificationRepository.GetDegreeClassifications();
             List<SchoolDegree> schoolDegrees = degreeRepository.GetSchoolDegrees();
-            
+            List<SubjectRequiredSchoolDegree> subjectRequiredSchoolDegrees = subjectsRequiredSchoolDegreeRepository.GetSubjectRequiredSchoolDegreesBySchoolDegree(registrationInterview.SchoolDegreeIdExpectedTeach);
 
             CandidateModelInOneView candidateModelInOneView = new CandidateModelInOneView(province, districtsCurrentLiving, wardsCurrentLiving, districtsHouseHold, wardsHouseHold, registrationInterview, trainningCategories, graduationClassfication, highestLevelEducations, specializedTrainings, statusWorikingInEducations, infomationTechnologyDegrees,foreignLanguageCertifications, subjects, degreeClassifications, schoolDegrees);
            
