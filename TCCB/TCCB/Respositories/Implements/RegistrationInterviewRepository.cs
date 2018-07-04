@@ -201,7 +201,7 @@ namespace TCCB.Repositories.Implements
             registrationInterview.UpdatedAt = DateTime.Now;
             registrationInterview.DOB = registrationInterviewDTO.DOB;
             registrationInterview.PhoneNumber = registrationInterviewDTO.PhoneNumber;
-            registrationInterview.SubjectToInterviewId = registrationInterview.SubjectToInterviewId;
+            registrationInterview.SubjectToInterviewId = registrationInterviewDTO.SubjectToInterviewId;
             if (registrationInterviewDTO.CreatedAtManagementUnitId == 26)
             {
                 registrationInterview.Aspirations01DistrictId = registrationInterviewDTO.Aspirations01DistrictId;
@@ -286,7 +286,7 @@ namespace TCCB.Repositories.Implements
             registrationInterview.UpdatedAt = DateTime.Now;
             registrationInterview.DOB = registrationInterviewDTO.DOB;
             registrationInterview.PhoneNumber = registrationInterviewDTO.PhoneNumber;
-            registrationInterview.SubjectToInterviewId = registrationInterview.SubjectToInterviewId;
+            registrationInterview.SubjectToInterviewId = registrationInterviewDTO.SubjectToInterviewId;
             if (registrationInterviewDTO.CreatedAtManagementUnitId == 26)
             {
                 registrationInterview.Aspirations01DistrictId = registrationInterviewDTO.Aspirations01DistrictId;
