@@ -248,6 +248,10 @@ namespace TCCB.Repositories.Implements
             {
                 registrationInterview.IsHadNghiepVuSupham = true;
             }
+            else
+            {
+                registrationInterview.IsHadNghiepVuSupham = registrationInterviewDTO.IsHadNghiepVuSupham;
+            }
             registrationInterview.InfomationTechnologyDegreeId = registrationInterviewDTO.InfomationTechnologyDegreeId;
 
             registrationInterview.UniversityLocation = registrationInterviewDTO.UniversityLocation;
@@ -328,6 +332,10 @@ namespace TCCB.Repositories.Implements
             if (registrationInterviewDTO.TrainningCatergoryId == 1 || registrationInterviewDTO.TrainningCatergoryId == 3 || registrationInterviewDTO.TrainningCatergoryId == 5)
             {
                 registrationInterview.IsHadNghiepVuSupham = true;
+            }
+            else
+            {
+                registrationInterview.IsHadNghiepVuSupham = registrationInterviewDTO.IsHadNghiepVuSupham;
             }
             registrationInterview.InfomationTechnologyDegreeId = registrationInterviewDTO.InfomationTechnologyDegreeId;
 

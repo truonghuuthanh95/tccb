@@ -174,7 +174,7 @@
                             <div class="col-sm-5">
                                 <div class="form-group has-feedback" id="errorHouseNumberCurrentLiving">
                                     <label for="formControlsSelect" class="control-label">
-                                        Số nhà <span class="text-danger text-danger-default">
+                                        Số nhà, tên đường <span class="text-danger text-danger-default">
                                             <span class="glyphicon glyphicon-star"></span>
                                         </span>
                                     </label>
@@ -257,7 +257,7 @@
                             <div class="col-sm-5">
                                 <div class="form-group has-feedback" id="errorHouseNumberHouseHold">
                                     <label for="formControlsSelect" class="control-label">
-                                        Số nhà/Thôn <span class="text-danger text-danger-default">
+                                        Số nhà, tên đường/Thôn <span class="text-danger text-danger-default">
                                             <span class="glyphicon glyphicon-star"></span>
                                         </span>
                                     </label>
@@ -502,19 +502,20 @@
                         </div>
                     </div><div class="col-sm-4">
                         <div class="form-group has-feedback" id="errorGPA">
-                            <label for="formControlsSelect" class="control-label">15.Điểm tốt nghiệp </label><div class="">
+                            <label for="formControlsSelect" class="control-label">15.Điểm TB các môn học</label><div class="">
                                 <input name="GPA" type="number" id="GPA" class="form-control" value="@Model.RegistrationInterview.GPA">
+                                <span class="text-warning">Điểm TB các môn học cuối khóa đối với kiểu đào tạo quy chế niên chế</span>
                             </div>
-                            <span class="text-warning">Lưu ý ghi điểm đại học</span><span class="help-block" id="errorGPAMessage"></span>
+                            <span class="help-block" id="errorGPAMessage"></span>
                         </div>
                     </div>
 
                     <div class="col-sm-4" id="isShowCaptionProjectPoint">
                         <div class="form-group has-feedback" id="errorCaptionProjectPoint">
-                            <label for="formControlsSelect" class="control-label">15.Điểm luận văn tốt nghiệp </label><div class="">
+                            <label for="formControlsSelect" class="control-label">15.1.Điểm thi TN hoặc luận văn TN </label><div class="">
                                 <input name="CaptionProjectPoint" type="number" id="CaptionProjectPoint" class="form-control" value="@Model.RegistrationInterview.CaptionProjectPoint">
                             </div>
-                            <span class="text-warning">Lưu ý ghi điểm đại học</span><span class="help-block" id="errorCaptionProjectPointMessage"></span>
+                           <span class="help-block" id="errorCaptionProjectPointMessage"></span>
                         </div>
                     </div>
 
@@ -786,8 +787,18 @@
                         <div class="form-group has-feedback" id="errorIsHadNghiepVuSupham">
                             <label class="control-label">24.Đã có chứng chỉ bồi dưỡng nghiệp vụ sư phạm</label>
                             <select name="IsHadNghiepVuSupham" class="form-control" id="IsHadNghiepVuSupham">
-                                <option value="true">Đã có</option>
-                                <option value="false">Chưa có</option>
+                                @{
+        if (Model.RegistrationInterview.IsHadNghiepVuSupham == true)
+        {
+                            <option value="true" selected>Đã có</option>
+                            <option value="false">Chưa có</option>
+}
+else
+{
+                            <option value="true">Đã có</option>
+                            <option value="false" selected>Chưa có</option>
+}
+                                }
                             </select><span class="help-block" id="errorIsHadNghiepVuSuphamMessage"></span>
                         </div>
                     </div>
@@ -964,7 +975,7 @@
                     SubjectToInterviewId: $('#SubjectToInterviewId').val(),
                     ForeignLanguageDegreeId: $('#ForeignLanguageDegreeId').val(),
                     InfomationTechnologyDegreeId:
-                        $('#ForeignLanguageDegreeId').val(),
+                        $('#InfomationTechnologyDegreeId').val(),
                     IsMale: $('#IsMale').val(),
                     DegreeClassificationId: $('#DegreeClassificationId').val(),
                     GraduatedAtYear: $('#GraduatedAtYear').val(),

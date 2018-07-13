@@ -48,7 +48,7 @@ namespace TCCB.Controllers
         public ActionResult IsValidToRegistrationInterview(string identifyCard)
         {
             Account account = (Account)Session[CommonConstants.USER_SESSION];
-            List<RegistrationInterview> registrationInterviews = registrationInterviewRepository.GetRegistrationInterviewByIdentidfyCardAndManagementUnitId(identifyCard, account.ManagementUnitId);
+            List<RegistrationInterview> registrationInterviews = registrationInterviewRepository.GetRegistrationInterviewByIdentidfyCardAndManagementUnitId(identifyCard.Trim(), account.ManagementUnitId);
             if (registrationInterviews.Any())
             {
                 foreach (RegistrationInterview item in registrationInterviews)
@@ -79,7 +79,7 @@ namespace TCCB.Controllers
             }
             RegistrationPrice registrationPrice = (RegistrationPrice)Session[CommonConstants.REGISTRATION_PRICE];
 
-            RegistrationInterview registrationInterview = registrationInterviewRepository.CreateRegistrationInterview(registrationInterviewRegister.CandidateName, registrationInterviewRegister.IdentifyCard, account.ManagementUnitId, registrationPrice.Value, account.Id);
+            RegistrationInterview registrationInterview = registrationInterviewRepository.CreateRegistrationInterview(registrationInterviewRegister.CandidateName.Trim(), registrationInterviewRegister.IdentifyCard.Trim(), account.ManagementUnitId, registrationPrice.Value, account.Id);
             Session.Add(CommonConstants.REGISTED_INTERVIEW, registrationInterview);
             return RedirectToRoute("inhoadon");
 
